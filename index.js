@@ -43,7 +43,8 @@ app.post('/produto', (req, res) => {
     const novoProduto = {
         id: produtos.length > 0 ? produtos[produtos.length - 1].id + 1 : 1,
         nome: req.body.nome,
-        preco: req.body.preco
+        preco: req.body.preco,
+        estoque: req.body.estoque
     };
     produtos.push(novoProduto);
     salvarProdutos(produtos);

@@ -50,7 +50,19 @@ app.post('/produto', (req, res) => {
     salvarProdutos(produtos);
     res.status(201).json(novoProduto);
 });
+app.patch('/produto/:id/estoque',(req, res) => {
+    const produtos = carregarProdutos();
+    const { estoque } = req.body;
+    const index = produtos.findIndex(p => p.id == req.params.id);
 
+    if (index === -1) {
+        return res.status(404).json({ erro: 'Produto não encontrado' });
+    }
+
+    produtos[index] = { ...produtos[index], estoque };
+    salvarProdutos(produtos);
+    res.json({ mensagem: 'Estoque atualizado', produto: produtos[index] });
+});
 // PUT /produto/:id — atualizar produto
 app.put('/produto/:id', (req, res) => {
     const produtos = carregarProdutos();
